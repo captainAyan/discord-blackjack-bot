@@ -26,7 +26,8 @@ export enum Gif {
   win = "https://media.giphy.com/media/J5Ye3xSZk4CfAL12dX/giphy.gif",
   lose = "https://media.giphy.com/media/Y4z9olnoVl5QI/giphy.gif",
   tie = "https://media.giphy.com/media/xT3i0P4CYQcdmFZQkM/giphy.gif",
-  blackjack = "https://media.giphy.com/media/cjPFESwD0lu7M9tCO2/giphy.gif"
+  blackjack = "https://media.giphy.com/media/cjPFESwD0lu7M9tCO2/giphy.gif",
+  timeup = "https://media.giphy.com/media/gLjD6hjRaLcFslzpvR/giphy.gif"
 }
 
 export class Card {
@@ -152,8 +153,17 @@ export class GameState {
   private _dealerHand:Hand;
   private _playerHand:Hand;
 
-  // 1 means won, -1 means lost, 2 means tie, 3 means blackjack, and 0 is default
+  /**
+   * -2 - Time-up
+   * -1 - Lost
+   * 0 - Default (Game is running)
+   * 1 - Won
+   * 2 - Tie
+   * 3 - BlackJack
+   */
   private _win:number = 0;
+
+  private _timestamp = Date.now(); // game starting time
 
   private _actionButtonHit:MessageButton;
   private _actionButtonStand:MessageButton;
@@ -176,6 +186,10 @@ export class GameState {
     if(this._playerHand.getValue() == 21) this._win=3;
   }
 
+  public isOver():boolean  {
+    return this._win != 0;
+  }
+
   public getEmbed():MessageEmbed {
     const message = new MessageEmbed()
       .setColor("#fcba03")
@@ -183,7 +197,7 @@ export class GameState {
       .setDescription('You have started a BlackJack Game')
       .addField("Dealer Hand", this._dealerHand.print() , true)
       .addField("Player Hand", this._playerHand.print() , true)
-      .setFooter("Response within 5 minutes.");
+      .setFooter("Response within 30 Seconds.");
 
     if (this._win !== 0) {
       this._actionButtonHit.setDisabled(true);
@@ -195,6 +209,7 @@ export class GameState {
     else if(this._win == -1) message.setImage(Gif.lose);
     else if(this._win == 2) message.setImage(Gif.tie);
     else if(this._win == 3) message.setImage(Gif.blackjack);
+    else if(this._win == -2) message.setImage(Gif.timeup);
 
     return message;
   }
@@ -212,29 +227,35 @@ export class GameState {
 
   // player action HIT
   public hit():void {
-    this._playerHand.cards.push(Card.getRandom(false));
+    if((Date.now() - this._timestamp) < 30000) { // check for time-up
+      this._playerHand.cards.push(Card.getRandom(false));
 
-    // check for player blackjack or bust
-    if (this._playerHand.getValue() == 21) this._win = 3;
-    else if (this._playerHand.getValue() > 21) this._win = -1;
+      // check for player blackjack or bust
+      if (this._playerHand.getValue() == 21) this._win = 3;
+      else if (this._playerHand.getValue() > 21) this._win = -1;
+    }
+    else this._win = -2;
   }
 
   // player action STAND
   public stand():void {
-    // reveal the dealer's second card
-    this._dealerHand.cards[1].isHidden=false;
+    if((Date.now() - this._timestamp) < 30000) { // check for time-up
+      // reveal the dealer's second card
+      this._dealerHand.cards[1].isHidden=false;
 
-    // get a card for dealer
-    while (this._dealerHand.getValue() < 17) { // dealer hit's in case of value less than 17
-      this._dealerHand.cards.push(Card.getRandom(false));
-    }
+      // get a card for dealer
+      while (this._dealerHand.getValue() < 17) { // dealer hit's in case of value less than 17
+        this._dealerHand.cards.push(Card.getRandom(false));
+      }
 
-    // check for dealer
-    if(this._dealerHand.getValue() > 21) this._win = 1; // dealer has bust
-    else { // dealer has not bust, so compare the player and the dealer
-      if(this._playerHand.getValue() > this._dealerHand.getValue()) this._win = 1;
-      else if(this._playerHand.getValue() < this._dealerHand.getValue()) this._win = -1;
-      else if(this._playerHand.getValue() == this._dealerHand.getValue()) this._win = 2;
+      // check for dealer
+      if(this._dealerHand.getValue() > 21) this._win = 1; // dealer has bust
+      else { // dealer has not bust, so compare the player and the dealer
+        if(this._playerHand.getValue() > this._dealerHand.getValue()) this._win = 1;
+        else if(this._playerHand.getValue() < this._dealerHand.getValue()) this._win = -1;
+        else if(this._playerHand.getValue() == this._dealerHand.getValue()) this._win = 2;
+      }
     }
+    else this._win = -2;
   }
 }

@@ -28,7 +28,9 @@ client.on("message", async (msg) => {
 
     // msg.reply(gameState.getMessage());
     let m:Message = await msg.reply(gameState.getMessage());
-    games.push({ message: m, gameState: gameState });
+
+    if(!gameState.isOver())
+      games.push({ message: m, gameState: gameState });
   }
 
   // message = 'hi' and channel = TextChannel(👾-bot-testing)
@@ -53,18 +55,22 @@ client.on("message", async (msg) => {
 
 client.on("clickButton", async (m:MessageComponent) => {
 
-  console.log("Click");
-  // await m.clicker.fetch();
-  m.think();
+  console.log("BEFORE ACTION", games.length);
 
-  games.map((game) => {
+  for(let i=0; i<games.length; i++) {
+    let game:Game = games[i];
     if(game.message.id == m.message.id) {
       if(m.id === "hit") game.gameState.hit();
       if(m.id === "stand") game.gameState.stand();
       m.message.edit(game.gameState.getMessage());
-    }
-  });
 
+      // remove game from games list
+      if(game.gameState.isOver()) games.splice(i, 1);
+      break;
+    }
+  }
+
+  console.log("AFTER ACTION", games.length);
   m.defer(false);
 })
 
