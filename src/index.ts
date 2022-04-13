@@ -71,7 +71,7 @@ client.on("clickButton", async (m:MessageComponent) => {
   }
 
   console.log("AFTER ACTION", games.length);
-  m.defer(false);
+  m.reply.defer(false);
 })
 
 client.login(process.env.DISCORD_KEY);
