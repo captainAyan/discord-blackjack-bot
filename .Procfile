@@ -1,1 +1,2 @@
-web: npm run deployment-serve
+npm build
+npm start
