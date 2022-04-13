@@ -16,9 +16,11 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node ./src/",
+    "start": "ts-node ./src/index.ts",
     "dev": "nodemon --watch '/src/*.ts' --exec ts-node ./src/",
-    "build": "tsc --declaration"
+    "build": "tsc --declaration",
+    "deployment-serve": "node dist/index.js",
+    "postinstall": "npm run build"
   },
   "author": "Ayan Chakraborty",
   "license": "MIT"
