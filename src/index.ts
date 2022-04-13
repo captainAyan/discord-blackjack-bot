@@ -36,15 +36,16 @@ client.on("message", async (msg) => {
   // message = 'hi' and channel = TextChannel(👾-bot-testing)
   // the bot will DM you
   else if(msg.content.toLocaleLowerCase() === "hi"
-    && (msg.channel as any).name === "👾-bot-testing") {
+    && (msg.channel as any).name === process.env.CHANNEL_NAME) {
 
     const message = new MessageEmbed()
       .setColor("#fcba03")
       .setTitle("Welcome to BlackJack")
       .setDescription('Here are the rules.')
-      .addField("Rule #1", "This is the rule number one", false)
-      .addField("Rule #2", "This is the rule number two", false)
-      .addField("Rule #3", "This is the rule number three", false)
+      .addField("Rule #1", "The 🚀 button is the Hit button", false)
+      .addField("Rule #2", "The ✨ button is the Stand button", false)
+      .addField("Rule #3", "Respond within 30 seconds", false)
+      .addField("FYI", "There is no Double Down or Split", false)
       .addField("About Developer", "[@CaptainAyan](https://captainayan.github.io)", false)
       .setFooter("Powered By Heroku");
 
