@@ -1,5 +1,5 @@
 {
-  "name": "BlackJackDiscordBot",
+  "name": "discord-blackjack-bot",
   "version": "1.0.0",
   "description": "A discord bot for blackjack game",
   "main": "app.js",
