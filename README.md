@@ -1,16 +1,18 @@
 <p align="center">
-  <h1 align="center">Discord BlackJack 🎲</h1>
+  <h1 align="center">Discord Blackjack Bot 🎲👾</h1>
 
   <p align="center">
     A Discord Game of BlackJack. Play against a Bot.
     <br />
     <a href="https://discord.gg/Cpu7D8dy8y">Join Server</a>
     ·
-    <a href="https://github.com/captainAyan/Discord-BlackJack/issues">Report Bug 😓</a>
+    <a href="https://github.com/captainAyan/discord-blackjack-bot/issues">Report Bug 😓</a>
   </p>
 </p>
 <p align="center">
-  <a href="https://github.com/captainAyan/Discord-BlackJack"><img src="https://raw.githubusercontent.com/captainAyan/Discord-BlackJack/main/image.png"></a>
+  <a href="https://github.com/captainAyan/
+discord-blackjack-bot"><img src="https://raw.githubusercontent.com/captainAyan/
+discord-blackjack-bot/main/image.png"></a>
 </p>
 
 ## About
