@@ -11,8 +11,7 @@
 </p>
 <p align="center">
   <a href="https://github.com/captainAyan/
-discord-blackjack-bot"><img src="https://raw.githubusercontent.com/captainAyan/
-discord-blackjack-bot/main/image.png"></a>
+discord-blackjack-bot"><img src="https://github.com/captainAyan/discord-blackjack-bot/blob/main/image.png?raw=true"></a>
 </p>
 
 ## About
