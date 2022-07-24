@@ -11,12 +11,11 @@
 </p>
 <p align="center">
   <a href="https://github.com/captainAyan/
-discord-blackjack-bot"><img src="https://raw.githubusercontent.com/captainAyan/
-discord-blackjack-bot/main/image.png"></a>
+discord-blackjack-bot"><img src="https://github.com/captainAyan/discord-blackjack-bot/blob/main/image.png?raw=true"></a>
 </p>
 
 ## About
-🚧 UNDER DEVELOPMENT
+A free discord game of blackjack.
 
 ## Getting Started
 - Join [this](https://discord.gg/Cpu7D8dy8y) Discord server
@@ -31,6 +30,10 @@ discord-blackjack-bot/main/image.png"></a>
 - Create a `.env` file, and write `DISCORD_KEY={ secret token }`
 - Start application by running `npm start`
 
+## Demo
+<center>
+  <img src="https://raw.githubusercontent.com/captainAyan/discord-blackjack-bot/main/demo.gif?raw=true">
+</center>
 
 ## Contribution
 Just send me a pull request. Mention your discord or instagram id.
